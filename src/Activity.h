@@ -6,6 +6,28 @@
 #ifndef ACTIVITY_H
 #define ACTIVITY_H
 
+enum class ActivityType {Commute, Eat, Sleep};
+
+class Activity
+{
+    // Owned objects
+    int _time;
+    std::array<int, 3> _transitions;
+    ActivityType _activity;
+
+    // Not owned objects
+    std::unique_ptr<Person> _person;
+
+    public:
+        Activity(int t, std::array<int, 3> tr, ActivityType a) : _time(t), _transitions(tr), _activity(a) {}
+        ActivityType getActivity();
+        int decideNewActivity();
+        void movePersonToNewActivity(Activity *newActivity);
+        void setCurrentPerson(std::unique_ptr<Person> p);
+        void simulate();
+};
+
+/**
 class Activity
 {
     public:
@@ -63,5 +85,5 @@ class Eat : Activity
         void simulate() const;
 
 };
-
+**/
 #endif
