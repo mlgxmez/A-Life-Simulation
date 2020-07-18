@@ -8,9 +8,11 @@
 #include "Person.h"
 
 int main() {
-    std::cout << "Hello World!" << "\n";
-    std::unique_ptr<Person> p = std::make_unique<Person>();
-    WaitingQueue wq;
+    int num_people;
+    std::cout << "Choose number of people" << "\n";
+    std::cin >> num_people; // Number of people
+    //std::unique_ptr<Person> p = std::make_unique<Person>();
+    WaitingQueue wq(num_people);
     std::vector<Activity> activities;
     activities.emplace_back(Activity(300, {20, 80, 0}, ActivityType::Eat, wq));
     activities.emplace_back(Activity(2000, {25, 35, 40}, ActivityType::Sleep, wq));
@@ -19,8 +21,8 @@ int main() {
     //a1.setCurrentPerson(std::move(p));
     //std::thread t = std::thread(&Activity::simulate, std::move(a1));
     //t.join();
-    auto a = activities.begin()+1; // This is an iterator pointing to the first element
-    a->setCurrentPerson(std::move(p));
+    //auto a = activities.begin()+1; // This is an iterator pointing to the first element
+    //a->setCurrentPerson(std::move(p));
     //auto next_a = activities.end(); // Iterator pointing to the next element after end
     //
 
