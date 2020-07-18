@@ -33,6 +33,8 @@ public:
 class WaitingQueue
 {
 public:
+    WaitingQueue();
+    WaitingQueue(int num_person);
     void addToQueue(std::unique_ptr<Person> p, ActivityType new_activity);
     void sendPersonToNewActivity(Activity *a); // Calling with this op
 private:

@@ -6,6 +6,21 @@
 
 #include "Activity.h"
 
+WaitingQueue::WaitingQueue() {}
+
+WaitingQueue::WaitingQueue(int num_person)
+{
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(0, 2);
+    for(int i = 0; i < num_person; i++)
+    {
+        _personQueue.push_back(std::make_unique<Person>());
+        ActivityType startingActivity = static_cast<ActivityType>(dist(gen));
+        _activityQueue.push_back(startingActivity); // assign random activity
+    }
+}
+
 void WaitingQueue::addToQueue(std::unique_ptr<Person> p, ActivityType new_activity)
 {
     // Called after decided new activity
