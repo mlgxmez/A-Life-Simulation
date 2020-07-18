@@ -1,12 +1,14 @@
+#pragma once
 #include <memory>
 #include <array>
+#include <vector>
+#include <future>
+#include <mutex>
 
+#include "ActivityType.h"
 #include "Person.h"
 
-#ifndef ACTIVITY_H
-#define ACTIVITY_H
-
-enum class ActivityType {Commute, Eat, Sleep};
+class WaitingQueue;
 
 class Activity
 {
@@ -14,76 +16,28 @@ class Activity
     int _time;
     std::array<int, 3> _transitions;
     ActivityType _activity;
-
+    WaitingQueue *_waitingList = nullptr;
+    
     // Not owned objects
-    std::unique_ptr<Person> _person;
+    std::unique_ptr<Person> _currentPerson;
 
-    public:
-        Activity(int t, std::array<int, 3> tr, ActivityType a) : _time(t), _transitions(tr), _activity(a) {}
-        ActivityType getActivity();
-        int decideNewActivity();
-        void movePersonToNewActivity(Activity *newActivity);
-        void setCurrentPerson(std::unique_ptr<Person> p);
-        void simulate();
+public:
+    Activity(int t, std::array<int, 3> tr, ActivityType a, WaitingQueue &wq) : _time(t), _transitions(tr), _activity(a), _waitingList(&wq) {}
+    ActivityType getActivity();
+    int decideNewActivity();
+    void doActivity();
+    void setCurrentPerson(std::unique_ptr<Person> p);
+    void simulate();
 };
 
-/**
-class Activity
+class WaitingQueue
 {
-    public:
-        virtual void simulate() const = 0;
-    protected:
-        //void setCurrentPerson(Person p);
-        void jumpActivity();
-
-        int _time;
-        std::array<int,3> _jump_probability;
-        std::unique_ptr<Person> _person{}; // When it calls the constructor of Commute, it calls the constructor of Person
-
+public:
+    void addToQueue(std::unique_ptr<Person> p, ActivityType new_activity);
+    void sendPersonToNewActivity(Activity *a); // Calling with this op
+private:
+    std::mutex _mtx;
+    std::vector<std::unique_ptr<Person>> _personQueue; // we use a->moveCurrentPerson
+    std::vector<ActivityType> _activityQueue; // vector of next activity
+    //std::vector<std::promise<void>> _promises; //probably the promise must contain the index to next_activity
 };
-
-class Commute : Activity
-{
-    public:
-        Commute()
-        {
-            _time = 300;
-            _jump_probability[0] = 10;
-            _jump_probability[1] = 50;
-            _jump_probability[2] = 40;
-            _person = nullptr;
-        }
-        void simulate() const;
-};
-
-class Sleep : Activity
-{
-    public:
-        Sleep()
-        {
-            _time = 1200;
-            _jump_probability[0] = 50;
-            _jump_probability[1] = 0;
-            _jump_probability[2] = 50;
-            _person = nullptr;
-        }
-        void simulate() const;
-
-};
-
-class Eat : Activity
-{
-    public:
-        Eat()
-        {
-            _time = 100;
-            _jump_probability[0] = 70;
-            _jump_probability[1] = 15;
-            _jump_probability[2] = 15;
-            _person = nullptr;
-        }
-        void simulate() const;
-
-};
-**/
-#endif

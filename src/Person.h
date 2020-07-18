@@ -1,17 +1,16 @@
-#ifndef PERSON_H
-#define PERSON_H
+#pragma once
 
 class Person
 {
     
     public:
         static int id;
-        Person(): _id(Person::id) {++Person::id;}
+        Person(): _id(Person::id)
+        {
+            ++Person::id;
+        }
         int getId();
 
     private:
-        int _id;
-
+        const int _id;
 };
-
-#endif
