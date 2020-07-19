@@ -14,16 +14,15 @@ void setTimer()
 
 int main() {
     int num_people;
-    std::cout << "Choose number of people" << "\n";
+    std::cout << "Choose number of people: ";
     std::cin >> num_people; // Number of people
 
     WaitingQueue wq(num_people);
     std::vector<Activity> activities;
+    activities.emplace_back(Activity(700, {50, 20, 30}, ActivityType::Commute, wq));
     activities.emplace_back(Activity(300, {20, 80, 0}, ActivityType::Eat, wq));
     activities.emplace_back(Activity(2000, {25, 35, 40}, ActivityType::Sleep, wq));
-    activities.emplace_back(Activity(700, {50, 20, 30}, ActivityType::Commute, wq));
-
-
+    
     std::vector<std::thread> workers;
     for(auto &ac: activities)
     {
