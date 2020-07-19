@@ -15,5 +15,5 @@ void Person::writeToLog(int i)
 
 void Person::printLog()
 {
-    printf("Person ID: %d, Eat: %2d, Sleep: %2d, Commute: %2d\n", this->getId(), _activityLog[0], _activityLog[1], _activityLog[2]);
+    printf("Person ID: %d, Commute: %2d, Eat: %2d, Sleep: %2d\n", this->getId(), _activityLog[0], _activityLog[1], _activityLog[2]);
 }
