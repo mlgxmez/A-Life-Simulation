@@ -9,7 +9,7 @@ The project contains the following types of objects:
 * *Person*, object that moves around activities in a concurrent fashion. The number of objects of this type are specified by the user once the program is launched.
 * *Activity*, object that defines the activity it is going performed by the user. In the program there are only three types of activities: *Commute*, *Sleep* and *Eat*. Each activity has two properties: the time it takes to perform the actvity `_time`, expressed in milliseconds, and the array `_transitions`, that defines the probability of jumping to another activity. The order of the elements of the array follows the structure of the enum *ActivityType*.
 
-The object *Activity* has two more attributes. `_currentPerson`is the *Person* that at that moment is performing the activity. Every *Activity* has a pointer to a `WaitingQueue` object, which actually point to the same memory address. The `WaitingQueue` object is shared by all instances of object *Activity*.
+The object *Activity* has two more attributes. `_currentPerson`is the *Person* that at that moment is performing the activity. Every *Activity* has a pointer to a *WaitingQueue* object, which actually point to the same memory address. The *WaitingQueue* object is shared by all instances of object *Activity*.
 
 ![Relation of WaitingQueue](img/CommunicationWaitingQueue.png)
 
