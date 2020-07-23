@@ -1,6 +1,6 @@
 # A Life Simulation
 
-**NOTE**: This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213).
+**NOTE**: This is my Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213).
 
 In this project, I've built from scratch a system that logs the daily activities of one or multiple people, that is up to the user. This choice was influenced by the desire of putting into practice, what I learned about **smart pointers** and **concurrency** in C++. When you run the programs you will be asked how many people you want to participate in the simulation, then you will see how each person does a sequence activities. There are few activities, and each of them cannot be done by more than one person at the same time. That is where concurrency will handle all the activity threads accepting people requests and move them around other activities. The program running looks like this:
 
